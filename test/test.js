@@ -25,7 +25,8 @@ describe('Connections', function() {
         'Github': 'api.github.com',
         'Slack': {
           a: "test",
-          b: "test"
+          b: "test",
+          c: "test"
         }
       });
       assert.equal(false, t);
