@@ -65,22 +65,127 @@ Molecular.to('Github').get('/users/arthurmialon/events')
 
 ```
 
-## API
+## Molecular API
 More doc coming soon...
--  .connections
--  .get()
--  .post()
--  .put()
--  .delete()
--  .setMethod()
--  .setOptions()
--  .sendRequest()
 
+### .connections
+See all your connections to APIs
+
+### .connect(apis)
+#### Parameters :
+Name          | Type
+------------- | -------------
+APIs          | Object
+#### Example :
+```javascript
+Molecular.connect({
+  'Github': 'https://api.github.com',
+  'Slack' : 'https://api.slack.com'
+});
+```
+
+### .to(apiName)
+#### Parameters :
+Name          | Type
+------------- | -------------
+apiName       | String
+@return       | Object
+#### Example :
+```javascript
+Molecular.to('ApiName')
+```
+
+### .get(url)
+#### Parameters :
+Name          | Type
+------------- | -------------
+url           | String
+@return       | Callback Object
+#### Example :
+```javascript
+Molecular.get('http://your/api/endpoints');
+```
+
+### .post(url, data)
+#### Parameters :
+Name          | Type
+------------- | -------------
+url           | String
+data          | Data
+@return       | Callback Object
+#### Example :
+```javascript
+Molecular.post('http://your/api/endpoints', {});
+```
+
+### .put(url, data)
+#### Parameters :
+Name          | Type
+------------- | -------------
+url           | String
+data          | Data
+@return       | Callback Object
+#### Example :
+```javascript
+Molecular.put('http://your/api/endpoints', {});
+```
+
+### .delete(url)
+#### Parameters :
+Name          | Type
+------------- | -------------
+url           | String
+@return       | Callback Object
+#### Example :
+```javascript
+Molecular.post('http://your/api/endpoints', {});
+```
+
+### .setMethod(name callback)
+#### Parameters :
+Name          | Type
+------------- | -------------
+name          | String
+callback      | Function
+#### Example :
+```javascript
+Molecular.setMethod('methodName', function(arguments, callback) {
+  // Do stuff and apply the callback
+});
+```
+
+### .setOptions(options)
+#### Parameters :
+Name          | Type
+------------- | -------------
+options       | Object
+#### Example :
+```javascript
+Molecular.setOptions({
+  'headers': {
+    "ContentType": "Application/json"
+  }
+});
+```
+
+### .sendRequest(method, path, data, options)
+#### Parameters :
+Name          | Type
+------------- | -------------
+method        | string
+path          | string
+data          | object || boolean
+options       | object
+@return       | Callback Object
+#### Example :
+```javascript
+Molecular.sendRequest('GET', 'http://your/api/endpoint', false, {});
+```
 
 ## Advanced
 You can simply add some methods to your connections
 
-For example if I want to get the last commit from a specific repo (SailsJs)
+For example if I want to get the last commit from a specific repo (i.e: SailsJs)
 ```javascript
 
 // Set a new method to the api
