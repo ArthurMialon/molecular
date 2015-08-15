@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="molecular.js"></script>
+  </head>
+
+  <h1>Molecular example</h1>
+  <p>open your console to see it in action</p>
+
+  <script type="text/javascript">
+
+  Molecular.connect({
+    'Github': 'https://api.github.com'
+  })
+
+  // Set a new method to the api
+  Molecular.to('Github').setMethod('lasCommit', function(owner, repo, callback) {
+    this.get('/repos/'+owner+'/'+repo+'/commits')
+      .success(function(data) {
+        callback.apply(this, [false, data[0]]);
+      })
+      .error(function(err) {
+        callback.apply(this, [true, undefined]);
+      });
+  });
+
+  // Get the last commit
+  Molecular.to('Github').lasCommit('arthurmialon', 'StarterApiNodejs', function(err, commit) {
+    (err) ? console.error(err) : console.log(commit);
+  });
+
+  // Make a simple request
+  Molecular.to('Github').get('/users/arthurmialon/events')
+    .progress(function(req) {
+      console.log("progress");
+    })
+    .success(function(data, req) {
+      console.log(this); // Log the api current object
+    })
+    .error(function(err, req) {
+      console.log(err);
+    });
+
+
+  </script>
+</html>
