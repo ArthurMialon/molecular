@@ -7,6 +7,11 @@ Micro-library to make http request simply in the browser or with a NodeJs server
 $ npm install molecularjs
 ```
 
+### On Bower
+```shell
+$ npm install molecularjs
+```
+
 ## Usage
 
 ### With nodejs :
