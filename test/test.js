@@ -41,4 +41,77 @@ describe('Connections', function() {
     });
 
   });
+
+  describe('Use an API', function () {
+
+    it('should return API object when chose an API', function () {
+      assert.equal('api.github.com', Molecule.to('Github').base);
+    });
+
+    it('should return an error when api doesn\'t exist', function () {
+      assert.equal(false, Molecule.to('Unknown'));
+    });
+  });
+});
+
+
+describe('Change API properties', function() {
+
+  it('should change the api base', function () {
+    Molecule.to('Github').setBase('https://api.github.com');
+    assert.equal('https://api.github.com', Molecule.to('Github').base);
+  });
+
+  it('should return false when the base isn\'t a string', function () {
+    assert.equal(false, Molecule.to('Github').setBase(123));
+    assert.equal('https://api.github.com', Molecule.to('Github').base);
+  });
+
+  it('should add or change option to the api', function () {
+    var optionA = {
+      a: 'header 1',
+      b: 'header 2'
+    };
+    var optionB = true;
+
+    Molecule.to('Github').setOptions({
+      something: optionA,
+      else: optionB
+    });
+
+    assert.equal(optionA, Molecule.to('Github').something);
+    assert.equal(optionB, Molecule.to('Github').else);
+    assert.equal(undefined, Molecule.to('Github').other);
+  });
+
+});
+
+describe('Send Http Request - nodejs environment', function() {
+  describe('#GET request', function() {
+
+    it('should return callback object with success, error, progress', function () {
+      var req =  Molecule.to('Github').get('/some/endpoint');
+      assert.equal("function", typeof req.success);
+      assert.equal("function", typeof req.progress);
+      assert.equal("function", typeof req.error);
+    });
+
+    it('should return a success callback with data', function () {
+      Molecule.to('Github').setBase('api.github.com').get('/users/arthurmialon/events')
+        .success(function(data, req) {
+          if (data && req)
+            done();
+        });
+    });
+
+    it('should return a, error callback with err', function () {
+      Molecule.to('Github').setBase('api.github.com').get('/users/arthurmialon/events/efezfj/efizej/eifezf')
+        .error(function(err) {
+          if (err)
+            done();
+        });
+    });
+
+  });
+
 });

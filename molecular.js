@@ -314,6 +314,9 @@
     * @return {object} this
     */
     this.setBase = function(host) {
+      if (typeof host != "string")
+        return false;
+
       this.base = host;
       return this;
     };
@@ -375,7 +378,7 @@
 
     console.error('API : ""%s" is not set in Molecule.connections, please use .connect({object}) method', api);
 
-    return this;
+    return false;
   };
 
   /**
