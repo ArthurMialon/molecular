@@ -325,8 +325,8 @@
     * @return {object} this
     */
     this.setMethod = function(name, callback) {
-      // TODO - POUR ETRE PROPRE UTILISER LA MEME METHODE QUE {CALLBACKS} ET {METHODS}
       this[name] = callback;
+      return this;
     };
 
     return this;
