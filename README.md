@@ -10,7 +10,7 @@ $ npm install molecularjs
 ### On Bower
 ```shell
 $ npm install molecularjs
-```
+``` 
 
 ## Usage
 
