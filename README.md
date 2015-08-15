@@ -1,4 +1,4 @@
-# Molecular
+# Molecular !['travis build'](https://travis-ci.org/ArthurMialon/molecular.svg?branch=master)
 Micro-library to make http request simply in the browser or with a NodeJs server.
 
 ## Install
@@ -10,7 +10,7 @@ $ npm install molecularjs
 ### On Bower
 ```shell
 $ npm install molecularjs
-``` 
+```
 
 ## Usage
 
