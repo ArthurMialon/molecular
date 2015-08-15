@@ -6,7 +6,7 @@ Micro-library to make http request simply in the browser or with a NodeJs server
 ### With nodejs :
 ```javascript
 // First require the library
-// COMING SOON ON NOM
+// COMING SOON ON NPM
 var Molecular = require('./molecular')();
 
 // Connect to your favorites APIs
@@ -16,7 +16,7 @@ Molecular.connect({
 });
 
 // Set some options
-// There all options from the basic nodejs http module
+// There are all options from the basic nodejs https module
 Molecular.to('Github').setOptions({
   headers: {
     'user-agent': 'ArthurMialon'

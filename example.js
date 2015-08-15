@@ -33,7 +33,7 @@ Molecular.to('Github').get('/users/arthurmialon/events')
     console.log("progress");
   })
   .success(function(data, req) {
-    console.log(data, req);
+    console.log(data);
   })
   .error(function(err, req) {
     console.log(err);

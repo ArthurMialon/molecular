@@ -44,7 +44,7 @@
   * Get an hostname and a path from an url
   * @return {object} url infos
   */
-  var extractDomain = function (url) {
+  var extractPath = function (url) {
     var host = (url.indexOf("://") > -1) ? url.split('/')[2].split(':')[0] : url.split('/')[0].split(':')[0];
     var path = (url.indexOf("://") == -1) ? url : url.split("://"+host)[1]
 
@@ -69,7 +69,7 @@
       error: function() {},
       progress: function() {},
     };
-    
+
     // Xhr Object
     var xhr = getXhr();
 
@@ -138,7 +138,7 @@
       progress: function() {},
     };
 
-    var base = (api.base) ? api.base : extractDomain(path).host;
+    var base = (api.base) ? api.base : extractPath(path).host;
     var path = (api.base) ? path : extractPath(path).path;
 
     // Construction of an options object based on the Http module Doc
@@ -267,6 +267,7 @@
       for (var opt in obj) {
         this[opt] = obj[opt];
       }
+      return this;
     };
 
     /**

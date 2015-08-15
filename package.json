@@ -1,0 +1,26 @@
+{
+  "name": "molecularjs",
+  "version": "1.0.0",
+  "description": "Micro-library to make http request simply in the browser or with a NodeJs server.",
+  "main": "molecular.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArthurMialon/molecular.git"
+  },
+  "keywords": [
+    "http",
+    "request",
+    "module",
+    "native",
+    "simply"
+  ],
+  "author": "Arthur Mialon <arthurmialon@gmail.com> (http://www.arthurmialon.fr)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArthurMialon/molecular/issues"
+  },
+  "homepage": "https://github.com/ArthurMialon/molecular#readme"
+}
