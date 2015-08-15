@@ -1,13 +1,18 @@
 # Molecular
 Micro-library to make http request simply in the browser or with a NodeJs server.
 
+## Install
+### On nodejs
+```shell
+$ npm install molecularjs
+```
+
 ## Usage
 
 ### With nodejs :
 ```javascript
 // First require the library
-// COMING SOON ON NPM
-var Molecular = require('./molecular')();
+var Molecular = require('molecular')();
 
 // Connect to your favorites APIs
 Molecular.connect({
