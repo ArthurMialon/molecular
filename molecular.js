@@ -384,8 +384,13 @@
   * @return {object} this
   */
   library.connect = function(apis){
+    if (typeof apis != 'object') return false;
+
     for (index in apis)
-      this.connections[index] = new API().setBase(apis[index]);
+      if (typeof apis[index] == "string")
+        this.connections[index] = new API().setBase(apis[index]);
+      else
+        return false;
 
     return this;
   };

@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/ArthurMialon/molecular.git"
   },
+  "scripts": {
+    "test": "mocha"
+  },
   "keywords": [
     "http",
     "request",
@@ -19,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ArthurMialon/molecular/issues"
   },
-  "homepage": "https://github.com/ArthurMialon/molecular#readme"
+  "homepage": "https://github.com/ArthurMialon/molecular#readme",
+  "devDependencies": {
+    "mocha": "2.2.5"
+  }
 }
