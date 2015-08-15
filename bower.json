@@ -1,0 +1,29 @@
+{
+  "name": "molecularjs",
+  "main": "molecular.js",
+  "version": "1.0.1",
+  "homepage": "https://github.com/ArthurMialon/molecular",
+  "authors": [
+    "Arthur Mialon <arthurmialon@gmail.com>"
+  ],
+  "description": "Micro-library to make http request simply",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "http",
+    "request",
+    "module",
+    "native",
+    "simply"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
