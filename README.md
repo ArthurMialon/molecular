@@ -44,7 +44,6 @@ Molecular.to('Github').get('/users/arthurmialon/events')
 ### In a browser :
 ```html
 <!-- Import it to your website -->
-<!-- COMING SOON ON BOWER -->
 <script src="molecular.js"></script>
 ```
 Use it almost like in nodejs :
