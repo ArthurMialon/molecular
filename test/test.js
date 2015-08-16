@@ -16,7 +16,7 @@ describe('Connections', function() {
       Molecule.connect({
         'Github': 'api.github.com'
       });
-      assert.equal('api.github.com', Molecule.connections['Github'].base);
+      assert.equal('api.github.com', Molecule.connections.Github.base);
     });
 
     it('should connect to multiple APIs when there is object in parameter', function () {
@@ -24,8 +24,8 @@ describe('Connections', function() {
         'Github': 'api.github.com',
         'Slack': 'api.slack.com'
       });
-      assert.equal('api.github.com', Molecule.connections['Github'].base);
-      assert.equal('api.slack.com', Molecule.connections['Slack'].base);
+      assert.equal('api.github.com', Molecule.connections.Github.base);
+      assert.equal('api.slack.com', Molecule.connections.Slack.base);
     });
 
     it('should return false when an api is not correctly defined', function () {

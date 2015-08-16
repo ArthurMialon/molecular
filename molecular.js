@@ -27,7 +27,7 @@
     }
 
     return [result, req];
-  }
+  };
 
   /**
   * Get an Xhr Object
@@ -35,11 +35,11 @@
   */
   var getXhr = function() {
     try {
-      return new(this.XMLHttpRequest || ActiveXObject)('MSXML2.XMLHTTP.3.0');
+      return new (this.XMLHttpRequest || ActiveXObject)('MSXML2.XMLHTTP.3.0');
     } catch (e) {
       return false;
     }
-  }
+  };
 
   /**
   * Get an hostname and a path from an url
@@ -47,12 +47,12 @@
   */
   var extractPath = function (url) {
     var host = (url.indexOf("://") > -1)   ? url.split('/')[2].split(':')[0] : url.split('/')[0].split(':')[0];
-    var path = (url.indexOf("://") === -1) ? url : url.split("://"+host)[1]
+    var path = (url.indexOf("://") === -1) ? url : url.split("://"+host)[1];
 
     return {
       host: host,
       path  : path
-    }
+    };
   };
 
   /**
@@ -68,7 +68,7 @@
     return "?" + Object
       .keys(params)
       .map(function(key){
-        return key+"="+params[key]
+        return key+"="+params[key];
       })
       .join("&");
   };
@@ -92,7 +92,7 @@
     // Xhr Object
     var xhr = getXhr();
 
-    var url = (api.base) ? api.base + path : path
+    var url = (api.base) ? api.base + path : path;
 
     // Add Query string to the url
     url += formatQuery(data);
@@ -101,11 +101,11 @@
     method = method.toUpperCase();
 
     // Open the request
-    xhr.open(method, url, true)
+    xhr.open(method, url, true);
 
     // Set headers
     if (api.headers) {
-      for (header in api.headers) {
+      for (var header in api.headers) {
         if (api.hasOwnProperty(header)) {
           xhr.setRequestHeader(header, api.headers[header]);
         }
@@ -113,8 +113,8 @@
     }
 
     xhr.onprogress = function() {
-      methods.progress.apply(methods, parse(xhr))
-    }
+      methods.progress.apply(methods, parse(xhr));
+    };
 
     // Watching data
     xhr.onreadystatechange = function() {
@@ -148,7 +148,7 @@
         methods.progress = callback;
         return this;
       }
-    }
+    };
   };
 
   /**
@@ -220,7 +220,7 @@
     });
 
     // Write data to request body
-    if(data && ["POST", "PUT"].indexOf(method) != -1) {
+    if(data && ["POST", "PUT"].indexOf(method) !== -1) {
       req.write(data);
     }
 
@@ -241,7 +241,7 @@
         methods.progress = callback;
         return this;
       }
-    }
+    };
   };
 
   /* CHECKING ENVIRONMENT */
@@ -378,7 +378,7 @@
     };
 
     return this;
-  }
+  };
 
   /* ======================================= */
   /* ENDING API CLASS */
@@ -437,7 +437,7 @@
       return false;
     }
 
-    for (index in apis) {
+    for (var index in apis) {
       if (typeof apis[index] === "string") {
         this.connections[index] = new API().setBase(apis[index]);
       }
