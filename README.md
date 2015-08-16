@@ -1,4 +1,4 @@
-# Molecular !['travis build'](https://travis-ci.org/ArthurMialon/molecular.svg?branch=master) [![npm version](https://badge.fury.io/js/molecularjs.svg)](http://badge.fury.io/js/molecularjs) 
+# Molecular !['travis build'](https://travis-ci.org/ArthurMialon/molecular.svg?branch=master) [![npm version](https://badge.fury.io/js/molecularjs.svg)](http://badge.fury.io/js/molecularjs)
 Micro-library to make http request simply in the browser or with a NodeJs server.
 
 ## Install
@@ -148,7 +148,7 @@ url           | String
 @return       | Callback Object
 #### Example :
 ```javascript
-Molecular.post('http://your/api/endpoints', {});
+Molecular.delete('http://your/api/endpoints');
 ```
 
 ### .setMethod(name callback)
