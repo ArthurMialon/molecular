@@ -18,11 +18,12 @@
   * @param {object} request
   * @return {arry} [result, request]
   */
-  parse = function(req) {
+  var parse = function(req) {
+    var result;
     try {
-      var result = JSON.parse(req.responseText);
+      result = JSON.parse(req.responseText);
     }catch(e) {
-      var result = req.responseText;
+      result = req.responseText;
     }
 
     return [result, req];
@@ -60,8 +61,9 @@
   * @return {string} formatted string
   */
   var formatQuery = function(params){
-    if (typeof params != "object")
+    if (typeof params != "object") {
       return "";
+    }
 
     return "?" + Object
       .keys(params)
@@ -102,9 +104,11 @@
     xhr.open(method, url, true)
 
     // Set headers
-    if (api.headers)
-      for (header in api.headers)
+    if (api.headers) {
+      for (header in api.headers) {
         xhr.setRequestHeader(header, api.headers[header]);
+      }
+    }
 
     xhr.onprogress = function() {
       methods.progress.apply(methods, parse(xhr))
@@ -114,10 +118,12 @@
     xhr.onreadystatechange = function() {
       // On end
       if (xhr.readyState == 4) {
-        if (xhr.status >= 200 && xhr.status < 300)
-          methods.success.apply(methods, parse(xhr))
-        else
-          methods.error.apply(methods, parse(xhr))
+        if (xhr.status >= 200 && xhr.status < 300) {
+          methods.success.apply(methods, parse(xhr));
+        }
+        else {
+          methods.error.apply(methods, parse(xhr));
+        }
       }
     };
 
@@ -161,13 +167,13 @@
     };
 
     var base = (api.base) ? api.base : extractPath(path).host;
-    var path = (api.base) ? path : extractPath(path).path;
+    path = (api.base) ? path : extractPath(path).path;
 
     // Add Query string to the path
     path += formatQuery(data);
 
     // Construction of an options object based on the Http module Doc
-    options = {
+    var options = {
       method        : method,
       hostname      : base,
       path          : path,
@@ -243,12 +249,14 @@
   var env = (this.window) ? env = "browser" : "node";
 
   // If nodeJs then require Http module
-  if(env === "node")
+  if(env === "node") {
     var http = require('https');
+  }
 
   // If browser then get an XMLHttpRequest object
-  if(env === "browser")
+  if(env === "browser") {
     var xhr = getXhr();
+  }
 
   /* END CHECKING ENVIRONMENT */
   /* ============================== */
@@ -283,15 +291,18 @@
       // Format method and passing 'GET' by default
       method = (method) ? method.toUpperCase() : 'GET';
 
-      if (!path) return console.error('Missing url with your request to this API ');
+      if (!path) {
+        return console.error('Missing url with your request to this API ');
+      }
 
       // Check environment global to use the right object XHR or Http
       return (env === "node") ? callWithHttpModule(method, path, data, options) : callWithXhr(method, path, data, options);
     };
 
     this.setOptions = function(obj) {
-      if (typeof obj != "object")
+      if (typeof obj != "object") {
         return false;
+      }
 
       for (var opt in obj) {
         this[opt] = obj[opt];
@@ -343,8 +354,9 @@
     * @return {object} this
     */
     this.setBase = function(host) {
-      if (typeof host != "string")
+      if (typeof host != "string") {
         return false;
+      }
 
       this.base = host;
       return this;
@@ -402,8 +414,9 @@
   * @return {object} connection to the api
   */
   library.to = function(api) {
-    if (this.connections[api])
+    if (this.connections[api]) {
       return this.connections[api];
+    }
 
     console.error('API : ""%s" is not set in Molecule.connections, please use .connect({object}) method', api);
 
@@ -416,13 +429,18 @@
   * @return {object} this
   */
   library.connect = function(apis){
-    if (typeof apis != 'object') return false;
+    if (typeof apis != 'object') {
+      return false;
+    }
 
-    for (index in apis)
-      if (typeof apis[index] == "string")
+    for (index in apis) {
+      if (typeof apis[index] == "string") {
         this.connections[index] = new API().setBase(apis[index]);
-      else
+      }
+      else {
         return false;
+      }
+    }
 
     return this;
   };

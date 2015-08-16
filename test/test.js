@@ -107,16 +107,18 @@ describe('Send Http Request - nodejs environment', function() {
     it('should return a success callback with data', function () {
       Molecule.to('Github').setBase('api.github.com').get('/users/arthurmialon/events')
         .success(function(data, req) {
-          if (data && req)
+          if (data && req) {
             done();
+          }
         });
     });
 
     it('should return a, error callback with err', function () {
       Molecule.to('Github').setBase('api.github.com').get('/users/arthurmialon/events/efezfj/efizej/eifezf')
         .error(function(err) {
-          if (err)
+          if (err) {
             done();
+          }
         });
     });
 
