@@ -1,8 +1,8 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(factory); // RequireJs
+    define(factory()); // RequireJs
   } else if (typeof exports === 'object') {
-    module.exports = factory; // NodeJs
+    module.exports = factory(); // NodeJs
   } else {
     root.Molecular = factory(); // Browser
   }
@@ -55,6 +55,23 @@
   };
 
   /**
+  * Format url parameters into string
+  * @param {object} query params object
+  * @return {string} formatted string
+  */
+  var formatQuery = function(params){
+    if (typeof params != "object")
+      return "";
+
+    return "?" + Object
+      .keys(params)
+      .map(function(key){
+        return key+"="+params[key]
+      })
+      .join("&");
+  };
+
+  /**
   * Sending a request with an xhr object
   * @param {string} http method
   * @param {string} path
@@ -74,6 +91,9 @@
     var xhr = getXhr();
 
     var url = (api.base) ? api.base + path : path
+
+    // Add Query string to the url
+    url += formatQuery(data);
 
     // Be sure that the method is uppercase
     method = method.toUpperCase();
@@ -102,7 +122,9 @@
     };
 
     // Sending data
-    xhr.send(data);
+    if(data && ["POST", "PUT"].indexOf(method) != -1) {
+      xhr.send(data);
+    }
 
     // Return callbacks
     return {
@@ -140,6 +162,9 @@
 
     var base = (api.base) ? api.base : extractPath(path).host;
     var path = (api.base) ? path : extractPath(path).path;
+
+    // Add Query string to the path
+    path += formatQuery(data);
 
     // Construction of an options object based on the Http module Doc
     options = {
@@ -187,8 +212,9 @@
     });
 
     // Write data to request body
-    if(data)
+    if(data && ["POST", "PUT"].indexOf(method) != -1) {
       req.write(data);
+    }
 
     // Finishes sending the request
     req.end();
@@ -264,6 +290,9 @@
     };
 
     this.setOptions = function(obj) {
+      if (typeof obj != "object")
+        return false;
+
       for (var opt in obj) {
         this[opt] = obj[opt];
       }
@@ -275,8 +304,8 @@
     * @param {string} url
     * @return {function} request
     */
-    this.get = function (url) {
-      return this.sendRequest('GET', url, false, this);
+    this.get = function (url, params) {
+      return this.sendRequest('GET', url, params, this);
     };
 
     /**

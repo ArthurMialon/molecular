@@ -1,5 +1,13 @@
-var Molecule = require("../molecular")();
+var Molecule = require("../molecular");
 var assert   = require('assert');
+var self     = this;
+
+describe('Environment', function() {
+  it('should set the env variable to "node"', function() {
+    var env = (self.window) ? env = "browser" : "node";
+    assert.equal('node', env);
+  });
+});
 
 describe('Connections', function() {
   describe('connect', function () {
@@ -48,7 +56,7 @@ describe('Connections', function() {
       assert.equal('api.github.com', Molecule.to('Github').base);
     });
 
-    it('should return an error when api doesn\'t exist', function () {
+    it('should return an error when api doesn\'t exist and log the error', function () {
       assert.equal(false, Molecule.to('Unknown'));
     });
   });

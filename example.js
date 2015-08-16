@@ -1,4 +1,4 @@
-var Molecular = require('./molecular')();
+var Molecular = require('./molecular');
 
 Molecular.connect({
   'Github': 'api.github.com'

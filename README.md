@@ -17,7 +17,7 @@ $ bower install molecularjs
 ### With nodejs :
 ```javascript
 // First require the library
-var Molecular = require('molecular')();
+var Molecular = require('molecular');
 
 // Connect to your favorites APIs
 Molecular.connect({
@@ -104,15 +104,16 @@ apiName       | String
 Molecular.to('ApiName')
 ```
 
-### .get(url)
+### .get(url, params)
 #### Parameters :
 Name          | Type
 ------------- | -------------
 url           | String
+params        | Object
 @return       | Callback Object
 #### Example :
 ```javascript
-Molecular.get('http://your/api/endpoints');
+Molecular.get('http://your/api/endpoints', {limit: 2, orderby: "id", sort: "desc"});
 ```
 
 ### .post(url, data)
