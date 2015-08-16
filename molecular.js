@@ -41,6 +41,25 @@
     }
   };
 
+  /* CHECKING ENVIRONMENT */
+  /* ============================== */
+
+  // Check the current environment
+  var env = (this.window) ? env = "browser" : "node";
+
+  // If nodeJs then require Http module
+  if(env === "node") {
+    var http = require('https');
+  }
+
+  // If browser then get an XMLHttpRequest object
+  if(env === "browser") {
+    var xhr = getXhr();
+  }
+
+  /* END CHECKING ENVIRONMENT */
+  /* ============================== */
+
   /**
   * Get an hostname and a path from an url
   * @return {object} url infos
@@ -243,25 +262,6 @@
       }
     };
   };
-
-  /* CHECKING ENVIRONMENT */
-  /* ============================== */
-
-  // Check the current environment
-  var env = (this.window) ? env = "browser" : "node";
-
-  // If nodeJs then require Http module
-  if(env === "node") {
-    var http = require('https');
-  }
-
-  // If browser then get an XMLHttpRequest object
-  if(env === "browser") {
-    var xhr = getXhr();
-  }
-
-  /* END CHECKING ENVIRONMENT */
-  /* ============================== */
 
 
   /* ======================================= */
