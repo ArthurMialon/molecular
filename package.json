@@ -1,6 +1,6 @@
 {
   "name": "molecularjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Micro-library to make http request simply in the browser or with a NodeJs server.",
   "main": "molecular.js",
   "repository": {
