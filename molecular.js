@@ -47,7 +47,7 @@
   */
   var extractPath = function (url) {
     var host = (url.indexOf("://") > -1) ? url.split('/')[2].split(':')[0] : url.split('/')[0].split(':')[0];
-    var path = (url.indexOf("://") == -1) ? url : url.split("://"+host)[1]
+    var path = (url.indexOf("://") === -1) ? url : url.split("://"+host)[1]
 
     return {
       host: host,
@@ -61,7 +61,7 @@
   * @return {string} formatted string
   */
   var formatQuery = function(params){
-    if (typeof params != "object") {
+    if (typeof params !== "object") {
       return "";
     }
 
@@ -106,7 +106,9 @@
     // Set headers
     if (api.headers) {
       for (header in api.headers) {
-        xhr.setRequestHeader(header, api.headers[header]);
+        if (api.hasOwnProperty(header)) {
+          xhr.setRequestHeader(header, api.headers[header]);
+        }
       }
     }
 
@@ -117,7 +119,7 @@
     // Watching data
     xhr.onreadystatechange = function() {
       // On end
-      if (xhr.readyState == 4) {
+      if (xhr.readyState === 4) {
         if (xhr.status >= 200 && xhr.status < 300) {
           methods.success.apply(methods, parse(xhr));
         }
@@ -128,7 +130,7 @@
     };
 
     // Sending data
-    if(data && ["POST", "PUT"].indexOf(method) != -1) {
+    if(data && ["POST", "PUT"].indexOf(method) !== -1) {
       xhr.send(data);
     }
 
@@ -300,12 +302,14 @@
     };
 
     this.setOptions = function(obj) {
-      if (typeof obj != "object") {
+      if (typeof obj !== "object") {
         return false;
       }
 
       for (var opt in obj) {
-        this[opt] = obj[opt];
+        if (obj.hasOwnProperty(opt)) {
+          this[opt] = obj[opt];
+        }
       }
       return this;
     };
@@ -354,7 +358,7 @@
     * @return {object} this
     */
     this.setBase = function(host) {
-      if (typeof host != "string") {
+      if (typeof host !== "string") {
         return false;
       }
 
@@ -429,12 +433,12 @@
   * @return {object} this
   */
   library.connect = function(apis){
-    if (typeof apis != 'object') {
+    if (typeof apis !== 'object') {
       return false;
     }
 
     for (index in apis) {
-      if (typeof apis[index] == "string") {
+      if (typeof apis[index] === "string") {
         this.connections[index] = new API().setBase(apis[index]);
       }
       else {
