@@ -46,7 +46,7 @@
   * @return {object} url infos
   */
   var extractPath = function (url) {
-    var host = (url.indexOf("://") > -1) ? url.split('/')[2].split(':')[0] : url.split('/')[0].split(':')[0];
+    var host = (url.indexOf("://") > -1)   ? url.split('/')[2].split(':')[0] : url.split('/')[0].split(':')[0];
     var path = (url.indexOf("://") === -1) ? url : url.split("://"+host)[1]
 
     return {
