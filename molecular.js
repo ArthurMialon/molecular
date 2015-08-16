@@ -348,7 +348,7 @@
     * @param {string} url
     * @return {function} request
     */
-    this.delete = function (url, data) {
+    this.delete = function (url) {
       return this.sendRequest('DELETE', url, false, this);
     };
 
