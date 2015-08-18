@@ -18,11 +18,14 @@ $ bower install molecularjs
 ```javascript
 // First require the library
 var Molecular = require('molecular');
+```
 
+Use Molecular like that
+```javascript
 // Connect to your favorites APIs
 Molecular.connect({
-  'Github': 'api.github.com',
-  'Slack' : 'api.slack.com'
+  'Github': 'https://api.github.com',
+  'Slack' : 'http://api.slack.com'
 });
 
 // Set some options
@@ -47,32 +50,15 @@ Molecular.to('Github').get('/users/arthurmialon/events')
 
 ```
 ### In a browser :
+Use it almost like in nodejs :
+You just have to import the file to your website
+
 ```html
 <!-- Import it to your website -->
 <script src="molecular.js"></script>
 ```
-Use it almost like in nodejs :
-```javascript
 
-// Connect to your favorites APIs
-Molecular.connect({
-  'Github': 'https://api.github.com',
-  'Slack' : 'https://api.slack.com'
-});
 
-// Make a simply request to get some events
-Molecular.to('Github').get('/users/arthurmialon/events')
-  .progress(function(req) {
-    console.log("request progress");
-  })
-  .success(function(data, req) {
-    console.log(data, req);
-  })
-  .error(function(err, req) {
-    console.log(err);
-  });
-
-```
 
 ## Molecular API
 More doc coming soon...
@@ -121,7 +107,7 @@ Molecular.get('http://your/api/endpoints', {limit: 2, orderby: "id", sort: "desc
 Name          | Type
 ------------- | -------------
 url           | String
-data          | Data
+data          | Object
 @return       | Callback Object
 #### Example :
 ```javascript
@@ -133,7 +119,7 @@ Molecular.post('http://your/api/endpoints', {});
 Name          | Type
 ------------- | -------------
 url           | String
-data          | Data
+data          | Object
 @return       | Callback Object
 #### Example :
 ```javascript
@@ -172,7 +158,7 @@ options       | Object
 #### Example :
 ```javascript
 Molecular.setOptions({
-  'headers': {
+  headers: {
     "ContentType": "Application/json"
   }
 });
@@ -182,10 +168,10 @@ Molecular.setOptions({
 #### Parameters :
 Name          | Type
 ------------- | -------------
-method        | string
-path          | string
-data          | object || boolean
-options       | object
+method        | String
+path          | String
+data          | Object / Boolean
+options       | Object
 @return       | Callback Object
 #### Example :
 ```javascript
@@ -216,3 +202,13 @@ Molecular.to('Github').lasCommit('balderdashy', 'sails', function(err, commit) {
 });
 
 ```
+
+## Next version 1.1
+- Support http & https
+- Better options management (JSON and default options etc...)
+- Call en error if status code >= 200 & < 300 for http module nodejs
+- Get the body response on error
+- Fixes on POST/PUT request
+- Fixes on options with xhr
+- Minified version for bower
+- Automatic JSON.parse on data

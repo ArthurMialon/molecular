@@ -80,6 +80,7 @@ describe('Change API properties', function() {
       a: 'header 1',
       b: 'header 2'
     };
+    
     var optionB = true;
 
     Molecule.to('Github').setOptions({
@@ -87,9 +88,9 @@ describe('Change API properties', function() {
       else: optionB
     });
 
-    assert.equal(optionA, Molecule.to('Github').something);
-    assert.equal(optionB, Molecule.to('Github').else);
-    assert.equal(undefined, Molecule.to('Github').other);
+    assert.equal(optionA, Molecule.to('Github').options.something);
+    assert.equal(optionB, Molecule.to('Github').options.else);
+    assert.equal(undefined, Molecule.to('Github').options.other);
   });
 
 });

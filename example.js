@@ -12,7 +12,7 @@ Molecular.to('Github').setMethod('lasCommit', function(owner, repo, callback) {
     })
     .error(function(err) {
       callback.apply(this, [true, undefined]);
-    })
+    });
 });
 
 // Set options
@@ -24,7 +24,10 @@ Molecular.to('Github').setOptions({
 
 // Get the last commit
 Molecular.to('Github').lasCommit('balderdashy', 'sails', function(err, commit) {
-  (err) ? console.error(err) : console.log(commit);
+  if (err)
+    return console.error(err);
+    
+  console.log(commit);
 });
 
 // Make a request

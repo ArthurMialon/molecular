@@ -47,30 +47,22 @@
   // Check the current environment
   var env = (this.window) ? env = "browser" : "node";
 
-  // If nodeJs then require Http module
-  if(env === "node") {
-    var http = require('https');
-  }
-
-  // If browser then get an XMLHttpRequest object
-  if(env === "browser") {
-    var xhr = getXhr();
-  }
-
   /* END CHECKING ENVIRONMENT */
   /* ============================== */
 
   /**
-  * Get an hostname and a path from an url
+  * Get an hostname, a path and http(s) from an url
   * @return {object} url infos
   */
   var extractPath = function (url) {
     var host = (url.indexOf("://") > -1)   ? url.split('/')[2].split(':')[0] : url.split('/')[0].split(':')[0];
     var path = (url.indexOf("://") === -1) ? url : url.split("://"+host)[1];
+    var http = (url.split('://')[0].length > 5) ? 'http' : url.split('://')[0];
 
     return {
       host: host,
-      path  : path
+      path  : path,
+      http  : http
     };
   };
 
@@ -111,6 +103,7 @@
     // Xhr Object
     var xhr = getXhr();
 
+    // Construct the url
     var url = (api.base) ? api.base + path : path;
 
     // Add Query string to the url
@@ -187,26 +180,24 @@
       progress: function() {},
     };
 
+    // Require http or https module
+    var http = require(extractPath(path).http);
+
     var base = (api.base) ? api.base : extractPath(path).host;
-    path = (api.base) ? path : extractPath(path).path;
+        path = (api.base) ? path     : extractPath(path).path;
 
-    // Add Query string to the path
-    path += formatQuery(data);
+    // Add Query string to the path if it's not data
+    if (["POST", "PUT"].indexOf(method) == -1) {
+      path += formatQuery(data);
+    }
 
-    // Construction of an options object based on the Http module Doc
-    var options = {
-      method        : method,
-      hostname      : base,
-      path          : path,
-      port          : api.port           || false,
-      headers       : api.headers        || false,
-      localAddress  : api.localAddress   || false,
-      socketPath    : api.socketPath     || false,
-      auth          : api.auth           || false,
-      agent         : api.agent          || false,
-      keepAlive     : api.keepAlive      || false,
-      keepAliveMsecs: api.keepAliveMsecs || false,
-    };
+    // Construction of an options object
+    var options = api.options;
+
+    options.method   = method;
+    options.hostname = base;
+    options.path     = path;
+
 
     // Sending the request
     var req = http.request(options, function(res) {
@@ -226,8 +217,13 @@
 
       // Watch the end of the request
       res.on('end', function() {
-        // Call a success callback
-        methods.success.apply(api, [body, req]);
+        if (req.res.statusCode >= 200 && req.res.statusCode < 300 ) {
+          // Call a success callback
+          methods.success.apply(api, [body, req]);
+        }else {
+          // Call an error callback
+          methods.error.apply(api, [req]);
+        }
       });
 
     });
@@ -240,7 +236,7 @@
 
     // Write data to request body
     if(data && ["POST", "PUT"].indexOf(method) !== -1) {
-      req.write(data);
+      req.write(JSON.stringify(data));
     }
 
     // Finishes sending the request
@@ -302,15 +298,18 @@
     };
 
     this.setOptions = function(obj) {
+      this.options = this.options || {};
+
       if (typeof obj !== "object") {
         return false;
       }
 
       for (var opt in obj) {
         if (obj.hasOwnProperty(opt)) {
-          this[opt] = obj[opt];
+          this.options[opt] = obj[opt];
         }
       }
+
       return this;
     };
 
